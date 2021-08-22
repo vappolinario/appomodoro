@@ -2,6 +2,9 @@
     import Timer from "../components/timer.svelte";
     import TaskList from "../components/taskList.svelte";
 </script>
-<h1>Appomodoro - Pomodoro time tracking</h1>
+<svelte:head>
+	<title>Appomodoro</title>
+</svelte:head>
+<h1>Appomodoro</h1>
 <Timer />
 <TaskList />
