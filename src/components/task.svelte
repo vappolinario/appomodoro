@@ -6,9 +6,14 @@
 
     function setCurrent() {
         task.current = true;
-        dispatch("currentTask", task);
+        dispatch("taskChange", task);
+    }
+
+    function removeTask() {
+        dispatch("taskRemove", task);
     }
 </script>
 
-<p>{task.id} - {task.name}<span> - {task.iteractions}</span>
-<button type="submit" on:click={setCurrent} >Set current</button></p>
+<p>{task.id} - {task.name}<span> - {task.iterations}</span>
+<button type="submit" on:click={setCurrent} >Set current</button>
+<button type="submit" on:click={removeTask} >Remove</button></p>

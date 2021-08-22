@@ -1,7 +1,11 @@
 <script>
     import Progress from "./progress.svelte";
+    import { createEventDispatcher } from "svelte";
 
-    const totalSeconds = 25*60;
+    const dispatch = createEventDispatcher();
+
+    /*const totalSeconds = 25*60;*/
+    const totalSeconds = 10;
     let secondsLeft =  totalSeconds;
     let isRunning = false;
     let timer;
@@ -22,6 +26,7 @@
         timer = setInterval(() => {
             secondsLeft -= 1;
             if (secondsLeft == 0) {
+                fireTimerEvent();
                 timerIteration+=1;
                 resetTimer();
             }
@@ -34,6 +39,15 @@
         if ( timerIteration % 2 == 0 )
             return 0.2;
         return 1;
+    }
+
+    function fireTimerEvent() {
+        const onBreak = getTimerFactor() != 1;
+        dispatch("timerElapsed", {
+            iteration: timerIteration,
+            duration: totalSeconds*getTimerFactor(),
+            onBreak: onBreak,
+        });
     }
 </script>
 
