@@ -5,15 +5,14 @@
 
 	import Button from '@smui/button';
 	import DataTable, { Head, Body, Cell } from '@smui/data-table';
-    import Textfield from '@smui/textfield';
-	import HelperText from '@smui/textfield/helper-text/index';
+	import Textfield from '@smui/textfield';
 
 	let tasks = [];
-	let newTaskName = "";
+	let newTaskName = '';
 	let currentTask;
 
 	function addTask() {
-		if (newTaskName === "") return;
+		if (newTaskName === '') return;
 		tasks = [
 			...tasks,
 			{
@@ -24,7 +23,7 @@
 				duration: 0
 			}
 		];
-		newTaskName = "";
+		newTaskName = '';
 	}
 
 	function currentTaskChanged({ detail }) {
@@ -45,20 +44,16 @@
 	}
 </script>
 
-<Timer on:timerElapsed={timerElapsed} />
+<Timer on:timerElapsed={timerElapsed} task={currentTask} />
 
-<h4>Tasks</h4>
-
-<div style="columns margins">
-	<Textfield
-		style="width: 60% ;"
-		label="New task"
-		bind:value={newTaskName}
-/>
-	<Button type="submit" on:click={addTask}>Add</Button>
+<div style="text-align: center;">
+	<h4 style="margin-bottom: 0;">Tasks</h4>
+	<div style="columns margins">
+		<Textfield style="width: 60% ;" label="New task" bind:value={newTaskName} />
+		<Button type="submit" on:click={addTask} disabled={newTaskName === ''}>Add</Button>
+	</div>
 </div>
-
-<p></p>
+<br />
 <DataTable stickHeader table$aria-label="Tasks" style="width: 100%;">
 	<Head>
 		<Cell>Id</Cell>
