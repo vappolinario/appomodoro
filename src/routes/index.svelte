@@ -7,5 +7,7 @@
 <svelte:head>
 	<title>Appomodoro</title>
 </svelte:head>
-<h2>Appomodoro</h2>
+<div style="text-align: center;">
+	<h2>Appomodoro</h2>
+</div>
 <TaskList />

@@ -11,7 +11,7 @@
 	let timer;
 	let timerIteration = 1;
 
-	$: progress = (1 - secondsLeft / (totalSeconds * getTimerFactor())) * 100;
+	$: progress = (1 - secondsLeft / (totalSeconds * getTimerFactor()));
 	$: minutes = '' + Math.trunc(secondsLeft / 60);
 	$: seconds = '' + (secondsLeft % 60);
 
@@ -49,10 +49,8 @@
 	}
 </script>
 
-<div>
-	<h4>Remaining time: {minutes.padStart(2, '0')}:{seconds.padStart(2, '0')}</h4>
-</div>
+<h4>Remaining time: {minutes.padStart(2, '0')}:{seconds.padStart(2, '0')}</h4>
 <Progress {progress} />
-
+<br />
 <Button type="submit" on:click={startTimer} disabled={isRunning}>Start</Button>
 <Button type="submit" on:click={resetTimer} disabled={!isRunning}>Reset</Button>
