@@ -50,8 +50,10 @@
 
 <div style="text-align: center;">
 	<h4>{minutes.padStart(2, '0')}:{seconds.padStart(2, '0')}</h4>
-	<Progress {progress} />
-	<br />
+</div>
+<Progress {progress} />
+<br />
+<div style="text-align: center;">
 	<Button type="submit" on:click={startTimer} disabled={isRunning}>Start</Button>
 	<Button type="submit" on:click={resetTimer} disabled={!isRunning}>Reset</Button>
 </div>

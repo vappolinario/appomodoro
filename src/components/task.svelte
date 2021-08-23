@@ -16,9 +16,10 @@
 </script>
 
 <Row>
-	<Cell>{task.id}</Cell>
 	<Cell>{task.name}</Cell>
 	<Cell>{task.iterations}</Cell>
-	<Cell><Button type="submit" on:click={setCurrent}>Set current</Button></Cell>
+	<Cell
+		><Button type="submit" on:click={setCurrent} disabled={task.current}>Set current</Button></Cell
+	>
 	<Cell><Button type="submit" on:click={removeTask}>Remove</Button></Cell>
 </Row>

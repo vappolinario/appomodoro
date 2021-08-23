@@ -28,6 +28,10 @@
 
 	function currentTaskChanged({ detail }) {
 		currentTask = detail;
+		tasks.map((t) => {
+			if (t.id != detail.id) t.current = false;
+		});
+		tasks = tasks;
 	}
 
 	function taskRemoved({ detail }) {
@@ -54,9 +58,8 @@
 	</div>
 </div>
 <br />
-<DataTable stickHeader table$aria-label="Tasks" style="width: 100%;">
+<DataTable table$aria-label="Tasks" style="width: 100%;">
 	<Head>
-		<Cell>Id</Cell>
 		<Cell>Name</Cell>
 		<Cell>Iterations</Cell>
 		<Cell />
