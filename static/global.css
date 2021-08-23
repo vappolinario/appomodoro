@@ -1,0 +1,43 @@
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-family: Roboto, sans-serif;
+  font-size: 96px;
+  font-weight: 300;
+  letter-spacing: -1.5px;
+  line-height: 96px;
+  text-decoration: rgb(255, 255, 255);
+  text-transform: none;
+}
+
+h2 {
+  font-family: Roboto, sans-serif;
+  font-size: 60px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  line-height: 60px;
+  text-decoration: rgb(255, 255, 255);
+  text-transform: none
+}
+
+h3 {
+  font-family: Roboto, sans-serif;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: normal;
+  line-height: 50px;
+  text-decoration: rgb(255, 255, 255);
+  text-transform: none
+}
+
+h4 {
+  font-family: Roboto, sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 40px;
+  text-decoration: rgb(255, 255, 255);
+  text-transform: none
+}

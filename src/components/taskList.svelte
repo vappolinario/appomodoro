@@ -1,56 +1,75 @@
 <script>
-    import Timer from "./timer.svelte";
-    import Task from "./task.svelte";
-    import { nanoid } from "nanoid";
+	import Timer from './timer.svelte';
+	import Task from './task.svelte';
+	import { nanoid } from 'nanoid';
 
-    let tasks = [];
-    let newTaskName;
-    let currentTask;
+	import Button from '@smui/button';
+	import DataTable, { Head, Body, Cell } from '@smui/data-table';
+    import Textfield from '@smui/textfield';
+	import HelperText from '@smui/textfield/helper-text/index';
 
-    function addTask() {
-        if ( newTaskName === undefined )
-            return;
-        tasks = [...tasks, {
-            id: nanoid(5),
-            name: newTaskName,
-            current: false,
-            iterations: 0,
-            duration: 0
-        }];
-        newTaskName = undefined;
-    }
+	let tasks = [];
+	let newTaskName = "";
+	let currentTask;
 
-    function currentTaskChanged({ detail }) {
-        currentTask = detail;
-    }
+	function addTask() {
+		if (newTaskName === "") return;
+		tasks = [
+			...tasks,
+			{
+				id: nanoid(5),
+				name: newTaskName,
+				current: false,
+				iterations: 0,
+				duration: 0
+			}
+		];
+		newTaskName = "";
+	}
 
-    function taskRemoved({ detail }) {
-        tasks = tasks.filter(t => t.id != detail.id);
-        if ( currentTask.id == detail.id )
-            currentTask = undefined;
-    }
+	function currentTaskChanged({ detail }) {
+		currentTask = detail;
+	}
 
-    function timerElapsed( {detail}) {
-        console.log(detail, "task");
+	function taskRemoved({ detail }) {
+		tasks = tasks.filter((t) => t.id != detail.id);
+		if (!currentTask || currentTask.id == detail.id) currentTask = undefined;
+	}
 
-        if ( currentTask === undefined || detail.onBreak )
-            return;
+	function timerElapsed({ detail }) {
+		if (currentTask === undefined || detail.onBreak) return;
 
-        currentTask.duration += timerElapsed;
-        currentTask.iterations += 1;
-        tasks=tasks;
-    }
+		currentTask.duration += timerElapsed;
+		currentTask.iterations += 1;
+		tasks = tasks;
+	}
 </script>
-<p><strong>Current task:</strong> {currentTask === undefined ? "not set" : currentTask.name}</p>
-<Timer on:timerElapsed={timerElapsed}  />
 
-<h2>Tasks</h2>
+<Timer on:timerElapsed={timerElapsed} />
 
-<p>
-    <input type="text" placeholder="New task" bind:value={newTaskName} />
-    <button type="submit" on:click={addTask} >Add</button>
-</p>
+<h4>Tasks</h4>
 
-{#each tasks as task}
-    <Task {task} on:taskChange={currentTaskChanged} on:taskRemove={taskRemoved} />
-{/each}
+<div style="columns margins">
+	<Textfield
+		style="width: 60% ;"
+		label="New task"
+		bind:value={newTaskName}
+/>
+	<Button type="submit" on:click={addTask}>Add</Button>
+</div>
+
+<p></p>
+<DataTable stickHeader table$aria-label="Tasks" style="width: 100%;">
+	<Head>
+		<Cell>Id</Cell>
+		<Cell>Name</Cell>
+		<Cell>Iterations</Cell>
+		<Cell />
+		<Cell />
+	</Head>
+	<Body>
+		{#each tasks as task}
+			<Task {task} on:taskChange={currentTaskChanged} on:taskRemove={taskRemoved} />
+		{/each}
+	</Body>
+</DataTable>
