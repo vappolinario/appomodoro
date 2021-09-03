@@ -1,9 +1,9 @@
 <script>
 	import TaskList from '../components/taskList.svelte';
+	import '../asssets/global.css';
 </script>
 
-<link rel="stylesheet" href="../../static/global.css" />
-<link rel="stylesheet" href="node_modules/svelte-material-ui/bare.css" />
+<link rel="stylesheet" href="https://unpkg.com/svelte-material-ui/bare.css" />
 <svelte:head>
 	<title>Appomodoro</title>
 </svelte:head>
