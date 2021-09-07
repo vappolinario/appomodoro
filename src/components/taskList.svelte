@@ -7,14 +7,16 @@
 	import DataTable, { Head, Body, Cell } from '@smui/data-table';
 	import Textfield from '@smui/textfield';
 
-	let tasks = [];
+	import { tasks } from '../stores/taskStore';
+
 	let newTaskName = '';
 	let currentTask;
 
 	function addTask() {
 		if (newTaskName === '') return;
-		tasks = [
-			...tasks,
+		if (!$tasks) $tasks = [];
+		$tasks = [
+			...$tasks,
 			{
 				id: nanoid(5),
 				name: newTaskName,
@@ -28,14 +30,14 @@
 
 	function currentTaskChanged({ detail }) {
 		currentTask = detail;
-		tasks.map((t) => {
+		$tasks.map((t) => {
 			if (t.id != detail.id) t.current = false;
 		});
-		tasks = tasks;
+		$tasks = tasks;
 	}
 
 	function taskRemoved({ detail }) {
-		tasks = tasks.filter((t) => t.id != detail.id);
+		$tasks = $tasks.filter((t) => t.id != detail.id);
 		if (!currentTask || currentTask.id == detail.id) currentTask = undefined;
 	}
 
@@ -44,7 +46,7 @@
 
 		currentTask.duration += timerElapsed;
 		currentTask.iterations += 1;
-		tasks = tasks;
+		$tasks = $tasks;
 	}
 </script>
 
@@ -66,8 +68,10 @@
 		<Cell />
 	</Head>
 	<Body>
-		{#each tasks as task}
-			<Task {task} on:taskChange={currentTaskChanged} on:taskRemove={taskRemoved} />
-		{/each}
+		{#if $tasks}
+			{#each $tasks as task}
+				<Task {task} on:taskChange={currentTaskChanged} on:taskRemove={taskRemoved} />
+			{/each}
+		{/if}
 	</Body>
 </DataTable>
