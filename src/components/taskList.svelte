@@ -33,7 +33,7 @@
 		$tasks.map((t) => {
 			if (t.id != detail.id) t.current = false;
 		});
-		$tasks = tasks;
+		$tasks = $tasks;
 	}
 
 	function taskRemoved({ detail }) {
